@@ -20,7 +20,7 @@ resource "aws_s3_bucket" "files" {
 
 resource "aws_iam_instance_profile" "main" {
   name = "${var.name_prefix}_instance_profile"
-  roles = ["${aws_iam_role.main.name}"]
+  role = "${aws_iam_role.main.name}"
 
   lifecycle {
     create_before_destroy = true
