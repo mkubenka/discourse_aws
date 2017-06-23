@@ -73,8 +73,7 @@ path/to/your/configs
 - `credstash put discourse_db_password.discourse-dev`
 - `credstash put discourse_smtp_password.discourse-dev`
 - `./build.sh`
-  - builds and tags a Discourse docker image as `vYYYYmmdd-HHMMSS`
-- do a `docker push`: exact command will be printed out by `build.sh`
+  - builds and push a Discourse docker image as `vYYYYmmdd-HHMMSS`
 - `./deploy-dev.sh`
   - creates and deploys an application version using the latest docker image on ECR: `vYYYYmmdd-HHMMSS-bYYYYmmdd-HHMMSS`
 - change deploy strategy to Immutable to avoid downtime during deploys
@@ -113,6 +112,5 @@ same as dev setup except for:
 
 - optional: update your `./containers/app.yml`
 - `./build.sh`: builds a docker image locally
-- `docker push`: as instructed at the end of `./build.sh`'s output
 - `./deploy-dev.sh`: packages up a new application version and deploys to `discourse-dev`
 - `./deploy-prod.sh`: deploys the current application version deployed to `discourse-dev`

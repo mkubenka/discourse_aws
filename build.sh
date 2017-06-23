@@ -40,16 +40,13 @@ $docker_path \
 
 docker tag local_discourse/app $docker_tag
 
-# http://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth
+$(aws ecr get-login --no-include-email)
 
-# aws ecr create-repository --repository-name discourse_web
-# http://docs.aws.amazon.com/AmazonECR/latest/userguide/ECR_AWSCLI.html#AWSCLI_create_repository
+aws ecr describe-repositories --repository-name $docker_repository > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    aws ecr create-repository --repository-name $docker_repository
+fi
 
-echo
-echo "Built Docker image but it's not pushed yet. Push when you're ready:"
-echo docker push $docker_tag
-
-echo "You may need to (re-)authenticate with ECR:"
-echo aws ecr get-login
+docker push $docker_tag
 
 # todo: remove unused images
