@@ -1,6 +1,12 @@
 # Terraform config example that puts all ./tfmodules together.
 #
 
+variable "credstash_reader_policy_arn" {}
+
+variable "smtp_address" {}
+
+variable "smtp_user_name" {}
+
 variable "name_prefix" {
   default = "discourse_dev"
 }
@@ -18,15 +24,9 @@ variable "discourse_hostname" {
   default = "sandbox.discourse.example.com"
 }
 
-variable "cert_s3_bucket" {}
-
-variable "credstash_reader_policy_arn" {}
-
-variable "smtp_address" {}
-
-variable "smtp_user_name" {}
-
-variable "ses_active_receipt_rule_set_name" {}
+variable "ses_active_receipt_rule_set_name" {
+  default = "default-rule-set"
+}
 
 variable "ses_receipt_rule_set_offset" {
   default = "0"
@@ -62,7 +62,7 @@ module "eb" {
   hostname = "${var.discourse_hostname}"
   deployment_policy = "AllAtOnce"
   cert_email = "admin@${var.discourse_hostname}"
-  cert_s3_bucket = "${var.cert_s3_bucket}"
+  cert_s3_bucket = "${module.common.s3_bucket_certs}"
   certbot_extra_args = "--staging"
   developer_emails = "please-set-developer-emails"
   iam_role_policy_arns = ["${var.credstash_reader_policy_arn}"]
