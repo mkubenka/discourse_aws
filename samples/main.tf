@@ -1,6 +1,10 @@
 # Terraform config example that puts all ./tfmodules together.
 #
 
+variable "developer_emails" {
+  description = "List of comma delimited emails that will be made admin and developer on initial signup example"
+}
+
 variable "credstash_reader_policy_arn" {}
 
 variable "smtp_address" {}
@@ -64,7 +68,7 @@ module "eb" {
   cert_email = "admin@${var.discourse_hostname}"
   cert_s3_bucket = "${module.common.s3_bucket_certs}"
   certbot_extra_args = "--staging"
-  developer_emails = "please-set-developer-emails"
+  developer_emails = "${var.developer_emails}"
   iam_role_policy_arns = ["${var.credstash_reader_policy_arn}"]
   iam_role_policy_arn_count = "1"
   security_group_ids = ["${module.vpc.web_security_group_id}"]
