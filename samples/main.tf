@@ -5,7 +5,9 @@ variable "developer_emails" {
   description = "List of comma delimited emails that will be made admin and developer on initial signup example"
 }
 
-variable "credstash_reader_policy_arn" {}
+variable "credstash_reader_policy_arn" {
+  description = "https://github.com/fugue/credstash#secret-reader"
+}
 
 variable "smtp_address" {}
 
