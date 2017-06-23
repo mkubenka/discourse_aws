@@ -105,7 +105,9 @@ resource "aws_elastic_beanstalk_environment" "main" {
   name = "${var.env_name}"
   application = "${var.app_name}"
   cname_prefix = "${var.cname_prefix}"
-  solution_stack_name = "64bit Amazon Linux 2016.09 v2.5.0 running Docker 1.12.6"
+
+  # http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html#concepts.platforms.docker
+  solution_stack_name = "64bit Amazon Linux 2017.03 v2.6.0 running Docker 1.12.6"
 
   tags {
     Terraform = "true"
