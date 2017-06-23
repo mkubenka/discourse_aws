@@ -1,10 +1,6 @@
 # Terraform config example that puts all ./tfmodules together.
 #
 
-module "constants" {
-  source = "../../constants"
-}
-
 variable "name_prefix" {
   default = "discourse_dev"
 }
@@ -36,6 +32,10 @@ variable "ses_receipt_rule_set_offset" {
   default = "0"
 }
 
+module "common" {
+  source = "../discourse_aws/tfmodules/discourse-common/"
+}
+
 module "vpc" {
   source = "../discourse_aws/tfmodules/discourse-vpc/"
 
@@ -54,7 +54,7 @@ module "eb" {
   source = "../discourse_aws/tfmodules/discourse-eb/"
 
   name_prefix = "${var.name_prefix}"
-  app_name = "${var.app_name}"
+  app_name = "${module.common.app_name}"
   env_name = "${var.env_name}"
   cname_prefix = "${var.cname_prefix}"
   vpc_id = "${module.vpc.vpc_id}"
