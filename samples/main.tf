@@ -37,13 +37,13 @@ variable "ses_receipt_rule_set_offset" {
 }
 
 module "vpc" {
-  source = "../discourse_eb/tfmodules/discourse-vpc/"
+  source = "../discourse_aws/tfmodules/discourse-vpc/"
 
   name_prefix = "${var.name_prefix}"
 }
 
 module "db" {
-  source = "../discourse_eb/tfmodules/discourse-db/"
+  source = "../discourse_aws/tfmodules/discourse-db/"
 
   name_prefix = "${var.name_prefix}"
   subnet_ids = "${module.vpc.private_subnets}"
@@ -51,7 +51,7 @@ module "db" {
 }
 
 module "eb" {
-  source = "../discourse_eb/tfmodules/discourse-eb/"
+  source = "../discourse_aws/tfmodules/discourse-eb/"
 
   name_prefix = "${var.name_prefix}"
   app_name = "${var.app_name}"
@@ -74,7 +74,7 @@ module "eb" {
 }
 
 module "ses" {
-  source = "../discourse_eb/tfmodules/discourse-mail-receiver/"
+  source = "../discourse_aws/tfmodules/discourse-mail-receiver/"
 
   name_prefix = "${var.name_prefix}"
   cname_prefix = "${var.cname_prefix}"
