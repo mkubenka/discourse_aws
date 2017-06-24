@@ -42,8 +42,8 @@ docker tag local_discourse/app $docker_tag
 
 $(aws ecr get-login --no-include-email)
 
-aws ecr describe-repositories --repository-name $docker_repository > /dev/null 2>&1
-if [ $? -ne 0 ]; then
+aws ecr describe-repositories --repository-name $docker_repository > /dev/null 2>&1 && rc=$? || rc=$?
+if [ $rc -ne 0 ]; then
     aws ecr create-repository --repository-name $docker_repository
 fi
 
