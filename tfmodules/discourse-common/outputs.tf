@@ -7,5 +7,5 @@ output "s3_bucket_sourcebundles" {
 }
 
 output "s3_bucket_certs" {
-  value = "${aws_s3_bucket.main.id}"
+  value = "${aws_s3_bucket.certs.id}"
 }
