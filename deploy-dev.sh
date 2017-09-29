@@ -14,8 +14,8 @@ rm -rf $out_dir $zip_file
 mkdir -p $out_dir/.ebextensions
 
 cat Dockerfile.tmpl | DOCKER_TAG=$docker_tag envsubst > $out_dir/Dockerfile
-cp ../ebextensions/* $out_dir/.ebextensions/ || true
 cp ebextensions/* $out_dir/.ebextensions/
+cp -f ../ebextensions/* $out_dir/.ebextensions/ || true
 cp Dockerrun.aws.json $out_dir/
 
 (
